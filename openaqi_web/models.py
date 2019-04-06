@@ -28,3 +28,6 @@ class Reading(models.Model):
     temperature = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     humidity = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Reading from " + self.logged_by.name + " at " + self.time.strftime("%m/%d/%Y, %H:%M")
