@@ -5,8 +5,8 @@ import string
 
 class Sensor(models.Model):
     name = models.CharField(max_length=200)
-    latitude = models.DecimalField(max_digits=22, decimal_places=16)
-    longitude = models.DecimalField(max_digits=22, decimal_places=16)
+    latitude = models.DecimalField(max_digits=12, decimal_places=6)
+    longitude = models.DecimalField(max_digits=12, decimal_places=6)
     description = models.TextField()
     secret = models.CharField(max_length=60, editable=False)
     active = models.BooleanField(default=True)
