@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class OpenaqiWebConfig(AppConfig):
+class OpenAqiWebConfig(AppConfig):
     name = 'openaqi_web'

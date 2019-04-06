@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'openaqi_web.apps.OpenAqiWebConfig'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
