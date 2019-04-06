@@ -10,6 +10,9 @@ class Sensor(models.Model):
     description = models.TextField()
     secret = models.CharField(max_length=60, editable=False)
 
+    def __str__(self):
+        return "Sensor at " + self.name
+
     def save(self, *args, **kwargs):
         secret_seed = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(10)) + str(self.id)
         self.secret = hashlib.sha256(secret_seed.encode('utf-8')).hexdigest()
