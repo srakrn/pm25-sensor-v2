@@ -8,10 +8,9 @@ class Sensor(models.Model):
     latitude = models.DecimalField(max_digits=22, decimal_places=16)
     longitude = models.DecimalField(max_digits=22, decimal_places=16)
     description = models.TextField()
-    secret_seed = models.CharField(max_length=10, editable=False)
     secret = models.CharField(max_length=60, editable=False)
 
     def save(self, *args, **kwargs):
-        self.secret_seed = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(10))
-        self.secret = hashlib.sha256(self.secret_seed.encode('utf-8')).hexdigest()
+        secret_seed = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(10)) + str(self.id)
+        self.secret = hashlib.sha256(secret_seed.encode('utf-8')).hexdigest()
         super(Sensor, self).save(*args, **kwargs)
