@@ -1,6 +1,7 @@
 from django.db import models
 import random
 import hashlib
+import string
 
 class Sensor(models.Model):
     name = models.CharField(max_length=200)
