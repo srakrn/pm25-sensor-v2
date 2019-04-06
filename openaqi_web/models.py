@@ -27,3 +27,4 @@ class Reading(models.Model):
     pm_1 = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="PM1", blank=True, null=True)
     temperature = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     humidity = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    time = models.DateTimeField(auto_now=True)
