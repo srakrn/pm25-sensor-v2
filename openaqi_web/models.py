@@ -22,6 +22,7 @@ class Sensor(models.Model):
 
 
 class Reading(models.Model):
+    id = models.AutoField(primary_key=True, editable=False)
     logged_by = models.ForeignKey(Sensor, models.CASCADE)
     pm_10 = models.DecimalField(
         max_digits=6, decimal_places=2, verbose_name="PM10", blank=True, null=True)
@@ -33,7 +34,7 @@ class Reading(models.Model):
         max_digits=6, decimal_places=2, blank=True, null=True)
     humidity = models.DecimalField(
         max_digits=6, decimal_places=2, blank=True, null=True)
-    time = models.DateTimeField(auto_now=True)
+    time = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
         return "Reading from " + self.logged_by.name + " at " + self.time.strftime("%m/%d/%Y, %H:%M")
