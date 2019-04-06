@@ -13,5 +13,5 @@ class Sensor(models.Model):
 
     def save(self, *args, **kwargs):
         self.secret_seed = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(10))
-        self.secret = hashlib.sha256(self.secret_seed).hexdigest()
+        self.secret = hashlib.sha256(self.secret_seed.encode('utf-8')).hexdigest()
         super(Sensor, self).save(*args, **kwargs)
