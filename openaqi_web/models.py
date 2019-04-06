@@ -21,9 +21,9 @@ class Sensor(models.Model):
 
 class Reading(models.Model):
     logged_by = models.ForeignKey(Sensor, models.CASCADE)
-    pm_10 = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="PM10")
+    pm_10 = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="PM10", blank=True, null=True)
     pm_25 = models.DecimalField(
-        max_digits=6, decimal_places=2, verbose_name="PM2.5")
-    pm_1 = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="PM1")
-    temperature = models.DecimalField(max_digits=6, decimal_places=2)
-    humidity = models.DecimalField(max_digits=6, decimal_places=2)
+        max_digits=6, decimal_places=2, verbose_name="PM2.5", blank=True, null=True)
+    pm_1 = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="PM1", blank=True, null=True)
+    temperature = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    humidity = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
