@@ -18,3 +18,12 @@ class Sensor(models.Model):
         secret_seed = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(10)) + str(self.id)
         self.secret = hashlib.sha256(secret_seed.encode('utf-8')).hexdigest()
         super(Sensor, self).save(*args, **kwargs)
+
+class Reading(models.Model):
+    logged_by = models.ForeignKey(Sensor, models.CASCADE)
+    pm_10 = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="PM10")
+    pm_25 = models.DecimalField(
+        max_digits=6, decimal_places=2, verbose_name="PM2.5")
+    pm_1 = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="PM1")
+    temperature = models.DecimalField(max_digits=6, decimal_places=2)
+    humidity = models.DecimalField(max_digits=6, decimal_places=2)
