@@ -1,6 +1,7 @@
+from django.core import serializers
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Reading, Sensor
@@ -10,6 +11,15 @@ from json.decoder import JSONDecodeError
 
 def index(request):
     return HttpResponse("It works!")
+
+
+def api_request_latest(request, id):
+    if request.method == "GET":
+        reading = Reading.objects.filter(logged_by__id=id)
+        data = serializers.serialize('json', reading)
+        return HttpResponse(data, content_type="application/json")
+    else:
+        return HttpResponse(status=405)
 
 
 @csrf_exempt
