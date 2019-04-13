@@ -3,8 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
-from .models import Reading, Sensor
+from .models import Reading, Sensor, model_to_dict
 import json
 from json.decoder import JSONDecodeError
 
@@ -15,9 +14,8 @@ def index(request):
 
 def api_request_latest(request, id):
     if request.method == "GET":
-        reading = Reading.objects.filter(logged_by__id=id)
-        data = serializers.serialize('json', reading)
-        return HttpResponse(data, content_type="application/json")
+        reading = Reading.objects.filter(logged_by__id=id).order_by("-time")[0]
+        return JsonResponse(model_to_dict(reading))
     else:
         return HttpResponse(status=405)
 

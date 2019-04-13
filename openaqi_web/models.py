@@ -2,6 +2,35 @@ from django.db import models
 import random
 import hashlib
 import string
+from itertools import chain
+
+
+def model_to_dict(instance, fields=None, exclude=None, hide_non_editable=True):
+    """
+    Return a dict containing the data in ``instance`` suitable for passing as
+    a Form's ``initial`` keyword argument.
+
+    ``fields`` is an optional list of field names. If provided, return only the
+    named.
+
+    ``exclude`` is an optional list of field names. If provided, exclude the
+    named from the returned dict, even if they are listed in the ``fields``
+    argument.
+
+    ``hide_non_editable`` is an optional boolean. If set to True, the non-editable
+    fields are returned.
+    """
+    opts = instance._meta
+    data = {}
+    for f in chain(opts.concrete_fields, opts.private_fields, opts.many_to_many):
+        if hide_non_editable and not getattr(f, 'editable', False):
+            continue
+        if fields and f.name not in fields:
+            continue
+        if exclude and f.name in exclude:
+            continue
+        data[f.name] = f.value_from_object(instance)
+    return data
 
 
 class Sensor(models.Model):
